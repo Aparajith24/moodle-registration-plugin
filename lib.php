@@ -22,72 +22,30 @@
  * @package   local_custom_registration
  */
 
-/**
- * Returns all fields that can be added in the registration form
- * These fields are all present in the user table
- *
- * @return array[]
- */
 function local_custom_registration_get_additional_fields() {
     $translations = get_string_manager()->get_list_of_translations();
 
     // TODO : It would be great to get the maxlength and type directly from the database
     return [
-        'custom_skype' => [
-            'element_type' => 'text',
-            'type' => PARAM_TEXT,
-            'maxlength' => 50,
-        ],
-        'custom_yahoo' => [
-            'element_type' => 'text',
-            'type' => PARAM_TEXT,
-            'maxlength' => 50,
-        ],
-        'custom_msn' => [
-            'element_type' => 'text',
-            'type' => PARAM_TEXT,
-            'maxlength' => 50,
-        ],
         'custom_phone1' => [
             'element_type' => 'text',
             'type' => PARAM_TEXT,
             'maxlength' => 20,
-        ],
-        'custom_phone2' => [
-            'element_type' => 'text',
-            'type' => PARAM_TEXT,
-            'maxlength' => 20,
-        ],
-        'custom_institution' => [
-            'element_type' => 'text',
-            'type' => PARAM_TEXT,
-            'maxlength' => 255,
         ],
         'custom_department' => [
             'element_type' => 'text',
             'type' => PARAM_TEXT,
             'maxlength' => 255,
         ],
-        'custom_address' => [
+        'custom_name' => [
             'element_type' => 'text',
             'type' => PARAM_TEXT,
             'maxlength' => 255,
-        ],
-        'custom_lang' => [
-            'element_type' => 'select',
-            'type' => PARAM_TEXT,
-            'values' => $translations
         ]
     ];
 }
 
-/**
- * Extend the signup form with additional fields selected in the plugin configuration
- *
- * @param $mform
- * @throws coding_exception
- * @throws dml_exception
- */
+
 function local_custom_registration_extend_signup_form($mform) {
 
     $additional_fields = local_custom_registration_get_additional_fields();
@@ -113,21 +71,10 @@ function local_custom_registration_extend_signup_form($mform) {
     }
 }
 
-/**
- * There is no data to validate.
- *
- * @param $datas
- * @return array
- */
 function local_custom_registration_validate_extend_signup_form($datas) {
     return [];
 }
 
-/**
- * Handle values of our custom signup fields
- *
- * @param $datas
- */
 function local_custom_registration_post_signup_requests($datas) {
     $added_fields = array_keys(local_custom_registration_get_additional_fields());
 
